@@ -1,25 +1,33 @@
 import { parseScript } from "esprima";
 import { BaseError, ParsingError } from "./errors";
-import { validators } from "./validators";
+import { all_validators } from "./validators";
 
-export function validateJsSource(source: string): Array<BaseError> {
+/**
+ * validate js source with validators
+ * 
+ * @param source source code text
+ * @param validators validator arrays, default with all validators
+ * @returns 
+ * error messages
+ * 
+ * if there is no errors for input source code, just return an empty array
+ */
+export function validateJsSource(source: string, validators = all_validators): Array<BaseError> {
   const rt = [];
 
   try {
     parseScript(source, { loc: true, tokens: true }, (node, meta) => {
       // traverse
       for (const validator of validators) {
+        // run validator
         const err = validator(node);
-        if (err != undefined) {
-          rt.push(err);
-        }
+        if (err != undefined) { rt.push(err); }
       }
     });
   } catch (error) {
     // parsing failed
     rt.push(new ParsingError(error));
   }
-
 
   return rt;
 

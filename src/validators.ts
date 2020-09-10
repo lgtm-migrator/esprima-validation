@@ -1,7 +1,6 @@
 import * as ESTree from 'estree';
 import { BaseError, InfiniteLoopError, NotSupportError } from "./errors";
 
-
 export interface Validator {
   (token: ESTree.Node): BaseError;
 }
@@ -35,7 +34,7 @@ export function es6FeaturesValidator(node: ESTree.Node): BaseError {
 }
 
 
-export const validators: Array<Validator> = [
+export const all_validators: Array<Validator> = [
   whileLoopValidator,
   foreverValidator,
   doWhileValidator,
