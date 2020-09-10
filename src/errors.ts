@@ -9,6 +9,17 @@ export class BaseError {
   }
 }
 
+export class NotSupportError extends BaseError {
+
+  public node: ESTree.Node;
+
+  constructor(node: ESTree.Node, type: string = node.type) {
+    super(`not support syntax '${type}', start at line: ${node.loc.start.line} col: ${node.loc.start.column}, end at line: ${node.loc.end.line} col: ${node.loc.end.column}.`);
+    this.node = node;
+  }
+
+}
+
 
 export class InfiniteLoopError extends BaseError {
 

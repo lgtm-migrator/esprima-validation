@@ -1,5 +1,5 @@
 import { validateJsSource } from "../src";
-import { InfiniteLoopError, ParsingError } from "../src/errors";
+import { InfiniteLoopError, NotSupportError, ParsingError } from "../src/errors";
 
 describe('Positive Test Suite', () => {
 
@@ -31,6 +31,14 @@ describe('Positive Test Suite', () => {
   it('should return not error when user input correct', () => {
     const rt = validateJsSource('var a = 1');
     expect(rt).toHaveLength(0);
+  });
+
+  it('should return error when user use let/const', () => {
+    const rt = validateJsSource('const a = 1');
+    expect(rt[0]).toBeInstanceOf(NotSupportError);
+
+    const rt2 = validateJsSource('let a = 1');
+    expect(rt2[0]).toBeInstanceOf(NotSupportError);
   });
 
 });

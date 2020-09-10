@@ -1,5 +1,5 @@
 import * as ESTree from 'estree';
-import { BaseError, InfiniteLoopError } from "./errors";
+import { BaseError, InfiniteLoopError, NotSupportError } from "./errors";
 
 
 export interface Validator {
@@ -27,9 +27,17 @@ export function doWhileValidator(node: ESTree.Node): BaseError {
   return undefined;
 }
 
+export function es6FeaturesValidator(node: ESTree.Node): BaseError {
+  if (node.type == "VariableDeclaration" && (node.kind == 'let' || node.kind == 'const')) {
+    return new NotSupportError(node, node.kind as string);
+  }
+  return undefined;
+}
+
 
 export const validators: Array<Validator> = [
   whileLoopValidator,
   foreverValidator,
-  doWhileValidator
+  doWhileValidator,
+  es6FeaturesValidator
 ];
