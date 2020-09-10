@@ -1,4 +1,4 @@
-import * as ESTree from 'estree';
+import { Node } from 'estree';
 
 export class BaseError {
   public message: string
@@ -11,9 +11,9 @@ export class BaseError {
 
 export class NotSupportError extends BaseError {
 
-  public node: ESTree.Node;
+  public node: Node;
 
-  constructor(node: ESTree.Node, type: string = node.type) {
+  constructor(node: Node, type: string = node.type) {
     super(`not support syntax '${type}', start at line: ${node.loc.start.line} col: ${node.loc.start.column}, end at line: ${node.loc.end.line} col: ${node.loc.end.column}.`);
     this.node = node;
   }
@@ -23,9 +23,9 @@ export class NotSupportError extends BaseError {
 
 export class InfiniteLoopError extends BaseError {
 
-  public node: ESTree.Node;
+  public node: Node;
 
-  constructor(node: ESTree.Node) {
+  constructor(node: Node) {
     super(`infinite loop found, start at line: ${node.loc.start.line} col: ${node.loc.start.column}, end at line: ${node.loc.end.line} col: ${node.loc.end.column}.`);
     this.node = node;
   }
