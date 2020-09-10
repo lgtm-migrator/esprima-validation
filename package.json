@@ -16,7 +16,7 @@
     "node": ">=10"
   },
   "dependencies": {
-    "esprima": "^4.0.0"
+    "esprima": "4.0.0"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",

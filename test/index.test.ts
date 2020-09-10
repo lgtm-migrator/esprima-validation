@@ -1,7 +1,7 @@
 import { validateJsSource } from "../src";
 import { InfiniteLoopError, ParsingError } from "../src/errors";
 
-describe('Demo Test Suite', () => {
+describe('Positive Test Suite', () => {
 
   it('should return error when found while(true) {}', () => {
     const rt = validateJsSource('while(true){}');
@@ -26,6 +26,11 @@ describe('Demo Test Suite', () => {
   it('should return error when parsing failed', () => {
     const rt = validateJsSource('do while(true)');
     expect(rt[0]).toBeInstanceOf(ParsingError);
+  });
+
+  it('should return not error when user input correct', () => {
+    const rt = validateJsSource('var a = 1');
+    expect(rt).toHaveLength(0);
   });
 
 });
