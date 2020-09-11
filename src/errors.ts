@@ -1,6 +1,6 @@
 import { Node } from 'estree';
 
-export class BaseError {
+export class BaseErrorMessage {
   public message: string
   public type: string
   constructor(msg: string = '') {
@@ -9,7 +9,7 @@ export class BaseError {
   }
 }
 
-export class NotSupportError extends BaseError {
+export class NotSupportErrorMessage extends BaseErrorMessage {
 
   public node: Node;
 
@@ -21,7 +21,7 @@ export class NotSupportError extends BaseError {
 }
 
 
-export class InfiniteLoopError extends BaseError {
+export class InfiniteLoopErrorMessage extends BaseErrorMessage {
 
   public node: Node;
 
@@ -32,7 +32,7 @@ export class InfiniteLoopError extends BaseError {
 
 }
 
-export class ParsingError extends BaseError {
+export class ParsingErrorMessage extends BaseErrorMessage {
 
   constructor(error: any) {
     super(error.message);

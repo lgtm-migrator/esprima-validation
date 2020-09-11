@@ -1,5 +1,5 @@
 import { parseScript } from "esprima";
-import { BaseError, ParsingError } from "./errors";
+import { BaseErrorMessage, ParsingErrorMessage } from "./errors";
 import { all_validators } from "./validators";
 
 /**
@@ -12,7 +12,7 @@ import { all_validators } from "./validators";
  * 
  * if there is no errors for input source code, just return an empty array
  */
-export function validateJsSource(source: string, validators = all_validators): Array<BaseError> {
+export function validateJsSource(source: string, validators = all_validators): Array<BaseErrorMessage> {
   const rt = [];
 
   try {
@@ -26,7 +26,7 @@ export function validateJsSource(source: string, validators = all_validators): A
     });
   } catch (error) {
     // parsing failed
-    rt.push(new ParsingError(error));
+    rt.push(new ParsingErrorMessage(error));
   }
 
   return rt;
